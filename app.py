@@ -55,9 +55,9 @@ def whatsapp():
 
             response.message(
                 "📌 Información:\n\n"
-                "Arcance se encuentra en proceso de incorporación de nuevos talentos.\n"
+                "Arcance está en proceso de incorporación de nuevos talentos.\n"
                 "Buscamos personas responsables, con buena actitud y ganas de aprender.\n\n"
-                "📎 Si te interesa, enviá tu CV en la opción 1."
+                "📎 Si te interesa, enviá tu CV con la opción 1."
             )
 
         elif mensaje == "3":
@@ -68,10 +68,17 @@ def whatsapp():
                 "Te van a responder a la brevedad."
             )
 
+        elif mensaje == "menu":
+
+            usuarios[numero]["estado"] = "inicio"
+
+            response.message("🔄 Volviendo al inicio...")
+
         else:
 
             response.message(
-                "⚠️ Opción inválida. Por favor elegí 1, 2 o 3."
+                "⚠️ Opción inválida.\n\n"
+                "Elegí 1️⃣ 2️⃣ 3️⃣ o escribí *menu*"
             )
 
     # ---------------- RECIBIR CV ----------------
@@ -97,30 +104,27 @@ def whatsapp():
 
             response.message("✅ ¡Gracias! Recibimos tu CV correctamente 😊")
 
-            response.message("📌 ¿Querés agregar algún comentario o postularte a algún área en particular?")
+            response.message(
+                "📨 Nuestro equipo de RRHH lo va a revisar y te contactará si avanzas."
+            )
 
-            usuarios[numero]["estado"] = "puesto"
+            usuarios[numero]["estado"] = "menu"
 
         else:
 
             response.message("⚠️ Por favor enviá tu CV en PDF o imagen.")
 
-    # ---------------- PUESTO ----------------
-    elif estado == "puesto":
-
-        usuarios[numero]["puesto"] = mensaje
-
-        response.message(
-            "✅ Postulación registrada correctamente.\n\n"
-            "📨 El equipo de RRHH va a revisar tu perfil."
-        )
-
-        usuarios[numero]["estado"] = "final"
-
-    # ---------------- FINAL ----------------
+    # ---------------- CONTROL GENERAL ----------------
     else:
 
-        response.message("🙏 Gracias por comunicarte con Arcance. ¡Éxitos!")
+        usuarios[numero]["estado"] = "menu"
+
+        response.message(
+            "🔄 Reiniciando menú...\n\n"
+            "1️⃣ Enviar CV\n"
+            "2️⃣ Información\n"
+            "3️⃣ RRHH"
+        )
 
     return str(response)
 
