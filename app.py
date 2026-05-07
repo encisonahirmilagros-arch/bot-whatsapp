@@ -25,12 +25,13 @@ def whatsapp():
 
     estado = usuarios[numero]["estado"]
 
-    # ---------------- INICIO ----------------
+    # ---------------- PRESENTACIÓN ----------------
     if estado == "inicio":
 
         response.message(
-            "👋 Hola! Bienvenido a las capacitaciones de Arcance.\n\n"
-            "Te dejamos las opciones disponibles:\n\n"
+            "👋 Hola! Somos Arcance Capacitaciones.\n\n"
+            "Te damos la bienvenida a nuestro sistema de postulación.\n\n"
+            "¿Qué te gustaría hacer?\n\n"
             "1️⃣ Enviar CV\n"
             "2️⃣ Información\n"
             "3️⃣ Hablar con RRHH"
@@ -41,7 +42,6 @@ def whatsapp():
     # ---------------- MENÚ ----------------
     elif estado == "menu":
 
-        # 1 - CV
         if mensaje == "1":
 
             response.message(
@@ -51,7 +51,6 @@ def whatsapp():
 
             usuarios[numero]["estado"] = "esperando_cv"
 
-        # 2 - INFORMACIÓN
         elif mensaje == "2":
 
             response.message(
@@ -61,7 +60,6 @@ def whatsapp():
                 "📎 Si te interesa, enviá tu CV en la opción 1."
             )
 
-        # 3 - RRHH
         elif mensaje == "3":
 
             response.message(
@@ -97,21 +95,15 @@ def whatsapp():
             with open(ruta_archivo, "wb") as f:
                 f.write(archivo.content)
 
-            response.message(
-                "✅ ¡Gracias! Recibimos tu CV correctamente 😊"
-            )
+            response.message("✅ ¡Gracias! Recibimos tu CV correctamente 😊")
 
-            response.message(
-                "📌 ¿Querés agregar algún comentario o postularte a algún área en particular?"
-            )
+            response.message("📌 ¿Querés agregar algún comentario o postularte a algún área en particular?")
 
             usuarios[numero]["estado"] = "puesto"
 
         else:
 
-            response.message(
-                "⚠️ Por favor enviá tu CV en PDF o imagen."
-            )
+            response.message("⚠️ Por favor enviá tu CV en PDF o imagen.")
 
     # ---------------- PUESTO ----------------
     elif estado == "puesto":
@@ -128,9 +120,7 @@ def whatsapp():
     # ---------------- FINAL ----------------
     else:
 
-        response.message(
-            "🙏 Gracias por comunicarte con Arcance. ¡Éxitos!"
-        )
+        response.message("🙏 Gracias por comunicarte con Arcance. ¡Éxitos!")
 
     return str(response)
 
